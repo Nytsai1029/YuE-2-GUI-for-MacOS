@@ -213,19 +213,79 @@ class Director:
         timing = out.get("timing") or {}
         if timing.get("output_tokens") and timing.get("seconds"):
             self._learn("ar_tok_s", timing["output_tokens"] / timing["seconds"])
-        analysis = analyze(out["abc"] or "", draft["lyrics"], gender=draft.get("gender") or "female",
-                           requested_bpm=draft.get("bpm"), vocal_bpm=draft.get("vocal_bpm"),
-                           truncated=out["truncated"], lexicon=self.db.lexicon(),
-                           instrumental=draft.get("gender") == "none")
+        edit_ops = []
+        if draft.get("gender") == "none" and out.get("abc"):
+            out, edit_ops = self._instrumentalize(take, draft, out, out_dir, seed)
+        target = self.target_seconds(draft)
+        analysis = self.analyze(out, draft)
+        if target and analysis.get("ok") and abs(analysis["predicted_seconds"] / target - 1) > 0.08:
+            out, ops = self._fit_length(take, draft, out, out_dir, seed, target,
+                                        analysis.get("alignment", {}).get("extra_abc", []))
+            if ops:
+                edit_ops += ops
+                analysis = self.analyze(out, draft)
         if analysis.get("ok") and analysis.get("bars"):
             self._learn("abc_tokens_per_bar", out["abc_tokens"] / max(1, analysis["bars"]), alpha=0.2)
         self.db.update("plans", row["id"], abc=out["abc"], dir=out["plan_dir"], truncated=int(out["truncated"]),
                        n_tokens=out["abc_tokens"], analysis=analysis, score=analysis.get("score", 0.0),
-                       passed=int(bool(analysis.get("passed"))))
+                       passed=int(bool(analysis.get("passed"))), edit_ops=edit_ops)
         row = self.db.get("plans", row["id"])
         self.bus.publish("plan", take_id=take["id"], plan_id=row["id"], idx=idx, score=row["score"],
                          passed=bool(row["passed"]), scorecard=analysis.get("scorecard"))
         return row
+
+    @staticmethod
+    def target_seconds(draft: dict) -> float | None:
+        t = (draft.get("style_fields") or {}).get("target_seconds")
+        return float(t) if t else None
+
+    def analyze(self, out: dict, draft: dict) -> dict:
+        return analyze(out["abc"] or "", draft["lyrics"], gender=draft.get("gender") or "female",
+                       requested_bpm=draft.get("bpm"), vocal_bpm=draft.get("vocal_bpm"),
+                       truncated=out["truncated"], lexicon=self.db.lexicon(),
+                       instrumental=draft.get("gender") == "none", target_seconds=self.target_seconds(draft))
+
+    def _fit_length(self, take, draft, out, out_dir, seed, target, extra):
+        """Bring the score to the requested length (instrumental sections + small tempo change)."""
+        from ..repair import fit_length
+
+        try:
+            abc, info = fit_length(out["abc"], target, extra)
+        except Exception as error:
+            log.warning("fit_length failed: %s", error)
+            return out, []
+        if not info["steps"]:
+            return out, []
+        fixed = self.engine.call("plan", {"out_dir": str(out_dir), "style": draft["style"], "lyrics": draft["sung"],
+                                          "cot": "full", "seed": seed, "abc": abc})
+        fixed["truncated"] = out["truncated"]
+        fixed["timing"] = out.get("timing")
+        self.bus.publish("take", take_id=take["id"], stage="plan",
+                         detail=f"fitted score to target: {info['from_seconds']:.0f}s → {info['to_seconds']:.0f}s")
+        return fixed, [{"op": "fit_length", "auto": True, **info}]
+
+    def _instrumentalize(self, take, draft, out, out_dir, seed):
+        """YuE2 always writes a singer's part; in instrumental mode move it to the instrument
+        line and resubmit the score, so nothing is left for the voice to hum."""
+        from ..abc.score import try_parse
+        from ..repair import instrumentalize
+
+        score, _ = try_parse(out["abc"])
+        if score is None or not score.vocal:
+            return out, []
+        try:
+            abc, info = instrumentalize(out["abc"])
+        except Exception as error:  # keep the original; the plan gate will flag the vocal line
+            log.warning("instrumentalize failed: %s", error)
+            return out, []
+        (Path(out_dir) / "score.original.abc").write_text(out["abc"], encoding="utf-8")
+        fixed = self.engine.call("plan", {"out_dir": str(out_dir), "style": draft["style"], "lyrics": draft["sung"],
+                                          "cot": "full", "seed": seed, "abc": abc})
+        fixed["truncated"] = out["truncated"]
+        fixed["timing"] = out.get("timing")
+        self.bus.publish("take", take_id=take["id"], stage="plan",
+                         detail=f"moved {info['moved_to_instrument']} vocal notes to the instrument line")
+        return fixed, [{"op": "instrumentalize", "auto": True, **info}]
 
     def ensure_engine_plan(self, take: dict, draft: dict, plan: dict) -> dict:
         """Edited/imported plans exist only as ABC text until they are rendered."""
@@ -448,9 +508,12 @@ class Director:
         ms = settings["mastering"]
         metrics = (cand.get("metrics") or {}).get("audio") or {}
         dst = folder / "master.flac"
-        if ms.get("enabled", True):
+        fields = draft.get("style_fields") or {}
+        max_seconds = float(fields["target_seconds"]) if fields.get("exact_length") and fields.get("target_seconds") else None
+        if ms.get("enabled", True) or max_seconds:
             out["mastering"] = master(audio_path, str(dst), lufs=ms.get("lufs", -14), true_peak=ms.get("true_peak", -1),
-                                      fade_out=1.5 if metrics.get("abrupt_ending") else 0.3)
+                                      fade_out=1.5 if metrics.get("abrupt_ending") else 0.3, max_seconds=max_seconds,
+                                      normalize=ms.get("enabled", True))
         else:
             import shutil
 

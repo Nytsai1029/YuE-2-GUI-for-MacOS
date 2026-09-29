@@ -43,7 +43,7 @@ def _sung_syllables(text: str, opts: SungOptions) -> int:
 
 def analyze(abc: str, lyrics_text: str, *, gender: str = "female", requested_bpm: float | None = None,
             vocal_bpm: float | None = None, truncated: bool = False, lexicon: dict | None = None,
-            instrumental: bool = False) -> dict:
+            instrumental: bool = False, target_seconds: float | None = None) -> dict:
     score, error = try_parse(abc)
     if score is None:
         return {"ok": False, "error": error, "gates": {"parse": False}, "scorecard": _zero_card(),
@@ -86,6 +86,8 @@ def analyze(abc: str, lyrics_text: str, *, gender: str = "female", requested_bpm
     if instrumental:
         gates = {"parse": True, "not_truncated": not truncated, "no_vocal_melody": vocal_share(score) < 0.05}
     total = sum(card[g] * w for g, w in GOAL_WEIGHTS.items())
+    length = length_fit(score.seconds, target_seconds)
+    total -= length["penalty"]
     repetition = dict(ctx.repetition)
     repetition.pop("_sim", None)
     return {
@@ -98,8 +100,27 @@ def analyze(abc: str, lyrics_text: str, *, gender: str = "female", requested_bpm
         "alignment": alignment.to_dict(), "harmony": ctx.harmony, "repetition": repetition,
         "melody": ctx.melody, "contrast": ctx.contrast, "range": ctx.range, "line_risks": risks,
         "scorecard": card, "gates": gates, "passed": all(gates.values()), "score": round(total, 1),
-        "issues": [i.to_dict() for i in issues],
+        "issues": [i.to_dict() for i in issues] + length["issues"], "length": length,
     }
+
+
+def length_fit(seconds: float, target: float | None) -> dict:
+    """How far a score is from the requested length (B8). Within 8% is on target."""
+    if not target:
+        return {"target": None, "ratio": None, "penalty": 0.0, "issues": []}
+    ratio = seconds / target
+    off = abs(ratio - 1)
+    penalty = round(min(25.0, max(0.0, off - 0.08) * 80), 1)
+    issues = []
+    if off > 0.12:
+        m, s = divmod(int(seconds), 60)
+        tm, ts = divmod(int(target), 60)
+        issues.append({"rule": "plan.target_length", "catalog": "B8", "severity": "warn" if off > 0.2 else "hint",
+                       "goal": "lyrics",
+                       "message": {"en": f"This score runs {m}:{s:02d} for a {tm}:{ts:02d} target. Use Repair → Fit length.",
+                                   "zh": f"这份乐谱时长 {m}:{s:02d}，目标是 {tm}:{ts:02d}。可以用“修复 → 适配时长”。"},
+                       "data": {"seconds": seconds, "target": target}})
+    return {"target": target, "ratio": round(ratio, 3), "penalty": penalty, "issues": issues}
 
 
 def vocal_share(score: Score) -> float:

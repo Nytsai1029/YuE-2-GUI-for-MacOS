@@ -154,10 +154,15 @@ def compose(style, lyrics, seed):
         base = {"chorus": 1, "bridge": 1}.get(tag, 0)
         vocal_bars, ins_bars = [], []
         if not section["lines"]:
+            sing = hit("vocal_in_instrumental")  # what the real model does: a singer's line anyway
             for b in range(4 if tag != "outro" else 2):
                 degree = prog[b % 4]
-                vocal_bars.append(f'"{w.chord_name(degree)}"z16')
-                ins_bars.append(" ".join(w.note(degree + d, 4) for d in (0, 2, 4, 2)))
+                if sing:
+                    vocal_bars.append(f'"{w.chord_name(degree)}"' + " ".join(w.note(degree + 4 + d, 4) for d in (0, 1, 2, 1)))
+                    ins_bars.append("Z" if b % 2 else " ".join(w.note(degree + d, 4) for d in (0, 2, 4, 2)))
+                else:
+                    vocal_bars.append(f'"{w.chord_name(degree)}"z16')
+                    ins_bars.append(" ".join(w.note(degree + d, 4) for d in (0, 2, 4, 2)))
             w.add_section(comment, vocal_bars, ins_bars)
             continue
         degree_now = base + 2

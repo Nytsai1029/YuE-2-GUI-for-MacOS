@@ -3,12 +3,13 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { StyleFields, Vocab, VocabItem } from "../api";
 import { lang } from "../i18n";
-import { Chip, cx, Segmented, Slider } from "./ui";
+import { Chip, cx, fmtTime, Segmented, Slider, Switch } from "./ui";
 
 export const DEFAULT_FIELDS: StyleFields = {
   language: "auto", genres: ["pop"], moods: [], gender: "female", timbre: ["warm"], delivery: "controlled",
   instruments: ["acoustic piano", "bass guitar", "drums"], production: ["polished studio mix"], harmony: "color",
   phrasing: ["memorable melody", "smooth phrasing"], bpm: 96, key: null, extra: "", override: null,
+  target_seconds: null, exact_length: false,
 };
 
 function Row({ label, children, hint }: { label: string; children: React.ReactNode; hint?: string }) {
@@ -103,6 +104,27 @@ export function StyleBuilder({ fields, onChange, vocab, composed, detectedLangua
           <Slider value={fields.bpm ?? 96} min={50} max={230} onChange={(v) => set("bpm", v)} />
           <input type="number" value={fields.bpm ?? ""} min={40} max={240} onChange={(e) => set("bpm", e.target.value ? Number(e.target.value) : null)}
             className="w-16 h-8 rounded-lg bg-panel-2 border border-line px-2 text-sm text-center outline-none focus:border-accent/60" />
+        </div>
+      </Row>
+
+      <Row label={t("style.length")} hint={fields.target_seconds ? fmtTime(fields.target_seconds) : t("style.lengthAuto")}>
+        <div className="flex flex-col gap-2.5">
+          <Segmented value={fields.target_seconds ? "target" : "auto"} size="sm"
+            onChange={(v) => onChange({ ...fields, target_seconds: v === "auto" ? null : (fields.target_seconds || 180) })}
+            options={[{ value: "auto", label: t("style.lengthAuto") }, { value: "target", label: t("style.lengthTarget") }]} />
+          {fields.target_seconds ? (
+            <>
+              <div className="flex items-center gap-3">
+                <Slider value={fields.target_seconds} min={45} max={345} step={15} onChange={(v) => set("target_seconds", v)} />
+                <span className="w-12 text-right tabular-nums text-sm">{fmtTime(fields.target_seconds)}</span>
+              </div>
+              <label className="flex items-center justify-between text-[12px] text-ink-2">
+                {t("style.exact")}
+                <Switch checked={fields.exact_length} onChange={(v) => set("exact_length", v)} />
+              </label>
+              <p className="text-[11px] text-ink-3 leading-relaxed">{t("style.lengthHint")}</p>
+            </>
+          ) : null}
         </div>
       </Row>
 

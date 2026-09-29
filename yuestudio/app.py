@@ -324,12 +324,19 @@ def create_app(data_dir: Path, host: str = "127.0.0.1", port: int = 8765, fake: 
         take = S_.db.get("takes", plan["take_id"])
         draft = S_.db.get("drafts", take["draft_id"])
         ops = body.get("ops") or []
+        target = Director.target_seconds(draft)
+        for op in ops:  # "fit length" uses the song's own target and known extra sections
+            if op.get("op") == "fit_length":
+                op.setdefault("target", target)
+                op.setdefault("extra_sections", ((plan.get("analysis") or {}).get("alignment") or {}).get("extra_abc", []))
+                if not op["target"]:
+                    raise HTTPException(422, {"error": "Set a target length in Style first."})
         result = apply_ops(plan["abc"], ops, key_hint=(plan.get("analysis") or {}).get("key"))
         if not result["ok"]:
             raise HTTPException(422, result)
         analysis = analyze(result["abc"], draft["lyrics"], gender=draft.get("gender") or "female",
                            requested_bpm=draft.get("bpm"), vocal_bpm=draft.get("vocal_bpm"), lexicon=S_.db.lexicon(),
-                           instrumental=draft.get("gender") == "none")
+                           instrumental=draft.get("gender") == "none", target_seconds=target)
         preview = {"abc": result["abc"], "ops": result["applied"], "diff": result.get("diff"), "analysis": analysis}
         if body.get("preview", False):
             return preview

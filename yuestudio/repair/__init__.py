@@ -240,6 +240,132 @@ def smooth_endings(text: str, gender_high: int = 74) -> tuple[str, list[dict]]:
     return text, changes
 
 
+# =========================================================================== instrumental
+def instrumentalize(text: str) -> tuple[str, dict]:
+    """Instrumental mode: YuE2 writes a singer's line even when told "no vocals", and any
+    note in the Vocal voice gets hummed or sung. Move the vocal melody into the Ins voice
+    wherever the instrument is resting (the tune is kept, played by an instrument), then
+    turn the Vocal voice into rests. Chord symbols stay in the Vocal line (dialect rule)."""
+    doc = E.Doc(text)
+    keys = doc.key_timeline()
+
+    def flat(voice):
+        out, key, pending = [], doc.lines[7][2:], None
+        for ml in doc.voice_lines(voice):
+            key = keys.get(ml.index, key)
+            for j, bar in enumerate(ml.bars):
+                if bar == "Z":
+                    ev, after, pending = [E.Ev("rest", units=doc.bar_units())], key, None
+                else:
+                    ev, after, pending = E.parse_bar(bar, key, pending)
+                out.append({"line": ml, "j": j, "key": key, "ev": ev})
+                key = after
+        return out
+
+    vocal, ins = flat("Vocal"), flat("Ins")
+
+    def has_notes(b):
+        return any(e.kind == "note" for e in b["ev"])
+
+    move = [has_notes(v) and not has_notes(i) for v, i in zip(vocal, ins)]
+    moved = dropped = 0
+    for n, (v, i) in enumerate(zip(vocal, ins)):
+        if not has_notes(v):
+            continue
+        count = sum(1 for e in v["ev"] if e.kind == "note")
+        if move[n]:
+            keep_tie = n + 1 < len(move) and move[n + 1]
+            i["ev"] = [E.Ev("note", e.pitch, e.units, e.tie and keep_tie) if e.kind == "note" else e
+                       for e in v["ev"] if e.kind in ("note", "rest", "key")]
+            i["new"] = True
+            moved += count
+        else:
+            dropped += count  # the instrument already plays here; the vocal line is simply silenced
+        out, rest = [], 0
+        for e in v["ev"]:
+            if e.kind in ("note", "rest"):
+                rest += e.units
+                continue
+            if rest:
+                out += [E.Ev("rest", units=u) for u in E._split_units(rest)]
+                rest = 0
+            out.append(e)
+        if rest:
+            out += [E.Ev("rest", units=u) for u in E._split_units(rest)]
+        v["ev"], v["new"] = out, True
+    for b in vocal + ins:
+        if b.get("new"):
+            b["line"].bars[b["j"]] = E.emit_bar(b["ev"], b["key"])
+    result = doc.text()
+    if parse(result).vocal:
+        raise E.EditError("vocal notes remain after instrumentalize")
+    return result, {"moved_to_instrument": moved, "silenced": dropped}
+
+
+# =========================================================================== length target
+def fit_length(text: str, target: float, extra_sections: list[int] | tuple = (), max_tempo: float = 0.06,
+               tolerance: float = 0.05) -> tuple[str, dict]:
+    """Bring a score close to ``target`` seconds without touching sung lyrics:
+    1. drop sections flagged as extra repeats (A17) when too long,
+    2. add/remove instrumental sections (never ones with vocal notes), keeping intro/outro,
+    3. fine-tune the tempo within ±max_tempo of the score's own tempo."""
+    start = parse(text)
+    base_bpm = start.bpm
+    ops: list[dict] = []
+    extra = sorted(set(extra_sections), reverse=True)
+
+    def err(t):
+        return abs(parse(t).seconds / target - 1)
+
+    # A sung song only gets up to two extra instrumental passages (stacked intros sound wrong);
+    # a pure instrumental piece can be built out freely.
+    max_dups = 2 if start.vocal else 16
+    dups = 0
+    for _ in range(16):
+        sc = parse(text)
+        ratio = sc.seconds / target
+        if abs(ratio - 1) <= tolerance:
+            break
+        n = len(sc.sections)
+        inst = [s.index for s in sc.sections if not sc.section_vocal(s.index)]
+        middle = [i for i in inst if 0 < i < n - 1] or [i for i in inst if len(inst) > 2 and i not in (0, n - 1)]
+        candidates: list[tuple[str, int]] = []
+        if ratio > 1:
+            candidates += [("drop_section", i) for i in extra if i < n]
+            if len(inst) > 2 or (inst and len(inst) < n):
+                candidates += [("drop_section", i) for i in sorted(middle, key=lambda i: -len(sc.sections[i].bars))]
+        elif dups < max_dups:
+            pool = middle or inst
+            candidates += [("duplicate_section", i) for i in sorted(pool, key=lambda i: -len(sc.sections[i].bars))]
+        best = None
+        current = abs(ratio - 1)
+        for op, i in candidates:
+            try:
+                new = (E.drop_section if op == "drop_section" else E.duplicate_section)(text, i)
+            except (E.EditError, ValueError, IndexError):
+                continue
+            e = err(new)
+            if e < current - 0.01 and (best is None or e < best[0]):
+                best = (e, new, op, i)
+        if best is None:
+            break
+        text = best[1]
+        ops.append({"op": best[2], "section": best[3]})
+        dups += best[2] == "duplicate_section"
+        extra = [i - 1 if best[2] == "drop_section" and i > best[3] else i for i in extra if i != best[3]]
+    sc = parse(text)
+    ratio = sc.seconds / target
+    if abs(ratio - 1) > 0.01:
+        bpm = round(sc.bpm * ratio)
+        bpm = max(round(base_bpm * (1 - max_tempo)), min(round(base_bpm * (1 + max_tempo)), bpm))
+        if bpm != sc.bpm:
+            text = E.set_tempo(text, bpm)
+            ops.append({"op": "tempo", "bpm": bpm})
+    final = parse(text).seconds
+    return text, {"from_seconds": round(start.seconds, 1), "to_seconds": round(final, 1), "target": target,
+                  "steps": ops}
+
+
 # =========================================================================== dispatcher
 def chord_diff(before: str, after: str) -> list[dict]:
     a, b = parse(before), parse(after)
@@ -277,6 +403,12 @@ def apply_ops(abc: str, ops: list[dict], key_hint: str | None = None) -> dict:
             elif kind == "drop_section":
                 text = E.drop_section(text, int(op["section"]))
                 applied.append({"op": kind, "section": op["section"]})
+            elif kind == "fit_length":
+                text, info = fit_length(text, float(op["target"]), op.get("extra_sections") or ())
+                applied.append({"op": kind, **info})
+            elif kind == "instrumentalize":
+                text, info = instrumentalize(text)
+                applied.append({"op": kind, **info})
             elif kind == "smooth_endings":
                 text, changes = smooth_endings(text, int(op.get("high", 74)))
                 applied.append({"op": kind, "changes": changes})

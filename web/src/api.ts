@@ -12,6 +12,7 @@ export interface StyleFields {
   language: string; genres: string[]; moods: string[]; gender: string; timbre: string[]; delivery: string;
   instruments: string[]; production: string[]; harmony: string; phrasing: string[]; bpm: number | null;
   key: string | null; extra: string; override: string | null;
+  target_seconds: number | null; exact_length: boolean;
 }
 export interface CheckResult {
   issues: Issue[]; style_issues: Issue[]; sung: string; style: string; language: string; blocking: number;
@@ -20,6 +21,7 @@ export interface CheckResult {
   counts: Record<string, number>;
   sections: { tag: string | null; raw_tag: string | null; tag_line: number | null; lines: number[]; syllables: number[] }[];
   mapping: { display_index: number; sung: string; display: string; changes: string[] }[];
+  target_seconds?: number | null;
   fields: StyleFields; instrumental?: boolean;
 }
 export interface VocabItem { en: string; zh: string; cat?: string; bpm?: number; half_time?: boolean }
@@ -40,6 +42,7 @@ export interface PlanAnalysis {
   alignment: { lines: { line: number; syllables: number; notes: number; ratio: number; start: number; end: number }[];
                missing_lyric: number[]; extra_abc: number[] };
   line_risks: { line: number; a15: boolean; a16: boolean; start: number; end: number }[];
+  length?: { target: number | null; ratio: number | null };
 }
 export interface Plan {
   id: string; take_id: string; parent_id: string | null; idx: number; source: string; seed: number; abc: string;

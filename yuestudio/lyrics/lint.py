@@ -27,12 +27,26 @@ POLYPHONES = {  # common lyric words whose default reading is easy to get wrong
 INSTRUMENTAL_SKELETON = "[Intro]\n\n[Interlude]\n\n[Interlude]\n\n[Interlude]\n\n[Outro]\n"
 
 
+def instrumental_skeleton(target: float | None, bpm: float, edm: bool = False) -> str:
+    """Intro + N interludes + outro, with N chosen so the estimate lands near ``target``."""
+    if not target:
+        return INSTRUMENTAL_SKELETON
+    best, best_err = INSTRUMENTAL_SKELETON, None
+    for n in range(1, 16):
+        text = "[Intro]\n\n" + "[Interlude]\n\n" * n + "[Outro]\n"
+        err = abs(estimate(parse(text), bpm, edm=edm, instrumental=True).seconds - target)
+        if best_err is None or err < best_err:
+            best, best_err = text, err
+    return best
+
+
 @dataclass
 class LintContext:
     bpm: float = 96.0
     vocal_bpm: float | None = None      # half-time feel for fast EDM (artcore, hardcore, DnB...)
     edm: bool = False
     instrumental: bool = False          # "no lyrics" mode: only instrumental section tags
+    target_seconds: float | None = None  # requested song length
     language: str | None = None
     lexicon: dict[str, str] = field(default_factory=dict)
     style: str = ""
@@ -560,6 +574,29 @@ def budget(r, doc, ctx):
                       data=est.to_dict())
 
 
+@register("lyrics.target_length", catalog="B8", stage="pre", severity="warn", goal="lyrics",
+          en="Lyrics vs target length", zh="歌词与目标时长")
+def target_length(r, doc, ctx):
+    """With a length target, the lyrics must roughly fill it: too few and the model stretches,
+    repeats sections (A17) or hums; too many and it rushes or drops lines (A1/A6)."""
+    if not ctx.target_seconds or not doc.sung_lines:
+        return
+    est = estimate(doc, ctx.vocal_bpm or ctx.bpm, style=ctx.style, edm=ctx.edm).seconds
+    t = ctx.target_seconds
+    fmt = lambda s: f"{int(s // 60)}:{int(s % 60):02d}"  # noqa: E731
+    if est > t * 1.2:
+        yield r.issue(f"These lyrics need about {fmt(est)} but the target is {fmt(t)}: the singer would rush or drop "
+                      "lines. Remove a section (e.g. a repeated chorus), raise the tempo, or raise the target.",
+                      f"这些歌词大约需要 {fmt(est)}，而目标是 {fmt(t)}，歌手会赶拍或漏句。请删掉一个段落（如重复的副歌）、"
+                      "提高速度，或放宽目标时长。", data={"estimate": est, "target": t})
+    elif est < t * 0.7:
+        yield r.issue(f"These lyrics fill about {fmt(est)} of the {fmt(t)} target. The harness will add instrumental "
+                      "passages, but more sections (or a bridge) sound better than long gaps; otherwise the model tends "
+                      "to repeat sections.",
+                      f"这些歌词只能填满目标 {fmt(t)} 中的约 {fmt(est)}。系统会补充纯音乐段落，但多写一些段落（或桥段）"
+                      "效果更好，否则模型容易重复段落。", severity="hint", data={"estimate": est, "target": t})
+
+
 # =========================================================================== entry point
 def lint(text: str, ctx: LintContext | None = None) -> dict:
     ctx = ctx or LintContext()
@@ -568,11 +605,11 @@ def lint(text: str, ctx: LintContext | None = None) -> dict:
     sung, mapping = N.sung_lyrics(doc, N.SungOptions(lexicon=ctx.lexicon))
     if ctx.instrumental and not mapping:
         if not doc.sections:
-            sung = INSTRUMENTAL_SKELETON
+            sung = instrumental_skeleton(ctx.target_seconds, ctx.vocal_bpm or ctx.bpm, ctx.edm)
             doc = parse(sung)
     est = estimate(doc, ctx.vocal_bpm or ctx.bpm, sung_text=sung, style=ctx.style, edm=ctx.edm,
                    instrumental=ctx.instrumental and not mapping)
-    return {"issues": [i.to_dict() for i in issues], "sung": sung,
+    return {"issues": [i.to_dict() for i in issues], "sung": sung, "target_seconds": ctx.target_seconds,
             "mapping": [m.__dict__ for m in mapping], "estimate": est.to_dict(),
             "language": doc.language(),
             "sections": [{"tag": s.tag, "raw_tag": s.raw_tag, "tag_line": s.tag_line,

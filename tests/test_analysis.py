@@ -61,6 +61,59 @@ def test_instrumental_gate(compose, faults):
     assert "plan.vocal_in_instrumental" in {i["rule"] for i in r2["issues"]}
 
 
+def test_instrumentalize_moves_vocal_line_to_instrument(compose, faults):
+    from yuestudio.abc._vendor import abc_tools as T
+    from yuestudio.abc.score import parse as parse_score
+    from yuestudio.repair import apply_ops
+
+    faults("vocal_in_instrumental")
+    skeleton = "[Intro]\n\n[Interlude]\n\n[Interlude]\n\n[Outro]\n"
+    for seed in range(6):
+        abc = compose("cinematic, instrumental, no vocals", skeleton, seed)
+        before = parse_score(abc)
+        assert before.vocal  # reproduces the bug: the model writes a singer's line anyway
+        r = apply_ops(abc, [{"op": "instrumentalize"}])
+        assert r["ok"], r
+        after = parse_score(r["abc"])
+        assert not after.vocal
+        assert [s for _, s in after.chord_timeline()] == [s for _, s in before.chord_timeline()]
+        info = r["applied"][0]
+        assert info["moved_to_instrument"] > 0 and info["moved_to_instrument"] + info["silenced"] == len(before.vocal)
+        T.parse(r["abc"])
+        assert analyze(r["abc"], "", instrumental=True)["gates"]["no_vocal_melody"]
+    # vocal songs work too (both voices busy): everything is silenced or moved, still valid
+    faults("")
+    song = compose("pop", "[Verse]\nhello there my friend\nwe sing along tonight\n", 1)
+    assert not parse_score(apply_ops(song, [{"op": "instrumentalize"}])["abc"]).vocal
+
+
+def test_director_auto_instrumentalizes(tmp_path, faults, monkeypatch):
+    import threading
+
+    from yuestudio import service
+    from yuestudio.db import DB
+    from yuestudio.director.pipeline import Director
+    from yuestudio.engine import Engine
+    from yuestudio.jobs.bus import Bus
+
+    faults("vocal_in_instrumental")
+    db = DB(tmp_path / "s.db")
+    db.save_settings({"engine": {"mode": "fake"}})
+    eng = Engine(tmp_path, db.settings)
+    try:
+        d = Director(db, eng, Bus(), tmp_path, db.settings, None)
+        song = service.create_song(db, "Piano")
+        draft = service.create_draft(db, song["id"], "", {"gender": "none", "bpm": 84})
+        take = service.create_take(db, song["id"], draft["id"], "draft")
+        d.run_take(take["id"], threading.Event())
+        plan = db.one("SELECT * FROM plans WHERE take_id=?", (take["id"],))
+        assert plan["edit_ops"] and plan["edit_ops"][0]["op"] == "instrumentalize"
+        assert plan["analysis"]["gates"]["no_vocal_melody"]
+        assert db.get("takes", take["id"])["status"] == "done"
+    finally:
+        eng.shutdown()
+
+
 @pytest.mark.parametrize("gender", ["female", "male"])
 def test_range_report(compose, lyrics, faults, gender):
     faults("")

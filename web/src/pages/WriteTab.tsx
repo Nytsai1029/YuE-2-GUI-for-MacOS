@@ -128,11 +128,15 @@ export function WriteTab({ work, check, vocab, checking }: {
           )}
         </div>
         <div className="flex items-center gap-4 px-4 py-2.5 border-t border-line text-[12px] text-ink-3">
-          <span className="flex items-center gap-1.5"><Clock3 className="size-3.5" />{t("write.length")} ≈ <b className="text-ink-2 font-medium">{fmtTime(est?.seconds)}</b></span>
+          <span className="flex items-center gap-1.5"><Clock3 className="size-3.5" />{t("write.length")} ≈ <b className="text-ink-2 font-medium">{fmtTime(est?.seconds)}</b>
+            {work.fields.target_seconds ? <span className={cx(est && Math.abs(est.seconds / work.fields.target_seconds - 1) > 0.2 ? "text-warn" : "text-ink-3")}>
+              / {fmtTime(work.fields.target_seconds)}</span> : null}</span>
           <span className="flex items-center gap-1.5"><Languages className="size-3.5" />{check?.language ?? "–"}</span>
           {check && check.vocal_bpm !== check.bpm && <span>{Math.round(check.vocal_bpm)} BPM {t("write.tempoFeel")}</span>}
           {est && (
-            <div className="flex-1 h-2 rounded-full overflow-hidden flex bg-line max-w-md">
+            <div className="relative flex-1 h-2 rounded-full overflow-hidden flex bg-line max-w-md">
+              {work.fields.target_seconds ? <span className="absolute inset-y-0 w-0.5 bg-ink z-10" title="target"
+                style={{ left: `${Math.min(100, (work.fields.target_seconds / Math.max(est.seconds, work.fields.target_seconds)) * 100)}%` }} /> : null}
               {est.sections.map((s, i) => (
                 <div key={i} title={`${s.tag} · ${fmtTime(s.seconds)}`} style={{ width: `${(s.seconds / Math.max(1, est.seconds)) * 100}%`,
                   background: SECTION_COLORS[s.tag] ?? "var(--ink-3)", opacity: .75 }} className="h-full border-r border-bg" />

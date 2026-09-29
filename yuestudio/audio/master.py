@@ -40,16 +40,23 @@ def _min_filter(x: np.ndarray, width: int) -> np.ndarray:
 
 
 def master(src: str, dst: str, lufs: float = -14.0, true_peak: float = -1.0,
-           fade_in: float = 0.01, fade_out: float = 0.0) -> dict:
+           fade_in: float = 0.01, fade_out: float = 0.0, max_seconds: float | None = None,
+           normalize: bool = True) -> dict:
     x, sr = sf.read(src, dtype="float32", always_2d=True)
     x = signal.sosfiltfilt(signal.butter(2, 20, "highpass", fs=sr, output="sos"), x, axis=0).astype(np.float32)
+    trimmed = False
+    if max_seconds and len(x) > int(max_seconds * sr):
+        x = x[: int(max_seconds * sr)]          # exact length: cut at the target with a musical fade
+        fade_out = max(fade_out, min(4.0, max_seconds * 0.05))
+        trimmed = True
     x = _fade(x, sr, fade_in, at_end=False)
     x = _fade(x, sr, max(0.02, fade_out), at_end=True)
     before = integrated_lufs(x, sr)
-    gain = 10 ** ((lufs - before) / 20) if before > -69 else 1.0
+    gain = 10 ** ((lufs - before) / 20) if before > -69 and normalize else 1.0
     y = (x * min(gain, 10 ** (18 / 20))).astype(np.float32)
     if true_peak_db(y) > true_peak:
         y = _limit(y, sr, true_peak - 0.2).astype(np.float32)
     sf.write(dst, y, sr, subtype="PCM_24")
     return {"input_lufs": round(before, 2), "output_lufs": round(integrated_lufs(y, sr), 2),
-            "true_peak_db": round(true_peak_db(y), 2), "gain_db": round(20 * np.log10(max(gain, 1e-9)), 2)}
+            "true_peak_db": round(true_peak_db(y), 2), "gain_db": round(20 * np.log10(max(gain, 1e-9)), 2),
+            "seconds": round(len(y) / sr, 2), "trimmed_to_target": trimmed}

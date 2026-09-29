@@ -42,6 +42,8 @@ class StyleFields:
     key: str | None = None
     extra: str = ""                         # free text appended verbatim
     override: str | None = None             # user-edited final string (wins when set)
+    target_seconds: int | None = None       # song length target (None = let the lyrics decide)
+    exact_length: bool = False              # trim the master with a fade at the target
 
     @classmethod
     def from_dict(cls, data: dict | None) -> StyleFields:

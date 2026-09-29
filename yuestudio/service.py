@@ -18,7 +18,8 @@ def check(lyrics: str, fields: dict | None, lexicon: dict[str, str]) -> dict:
     bpm = float(f.bpm or 96)
     vbpm = vocal_bpm(style, f)
     ctx = LintContext(bpm=bpm, vocal_bpm=vbpm, edm=info["edm"], lexicon=lexicon, style=style,
-                      instrumental=is_instrumental(f))
+                      instrumental=is_instrumental(f),
+                      target_seconds=float(f.target_seconds) if f.target_seconds else None)
     result = lint(lyrics, ctx)
     has_lyrics = bool(result["mapping"])
     style_issues = lint_style(style, f, result["language"], has_lyrics)

@@ -84,6 +84,13 @@ function RepairPanel({ plan, onApplied }: { plan: Plan; onApplied: (p: Plan) => 
           <Button size="sm" variant="soft" onClick={() => go([{ op: "reharmonize", level }])} loading={run.isPending}>{t("plan.preview")}</Button>
         </div>
       </Op>
+      {a.length?.target ? (
+        <Op icon={<Music className="size-4 text-lyrics" />} title={t("plan.fitLength")}
+          hint={`${fmtTime(a.predicted_seconds)} → ${fmtTime(a.length.target)} · ${t("plan.fitLengthHint")}`}>
+          <Button size="sm" variant="soft" disabled={Math.abs((a.length.ratio ?? 1) - 1) < 0.04}
+            onClick={() => go([{ op: "fit_length" }])}>{t("plan.preview")}</Button>
+        </Op>
+      ) : null}
       <Op icon={<Mic2 className="size-4 text-singing" />} title={t("plan.transpose")}>
         <RangeBar a={a} />
         <div className="flex items-center gap-2">
@@ -100,6 +107,13 @@ function RepairPanel({ plan, onApplied }: { plan: Plan; onApplied: (p: Plan) => 
           <Button size="sm" variant="soft" disabled={bpm === a.bpm} onClick={() => go([{ op: "tempo", bpm }])}>{t("plan.preview")}</Button>
         </div>
       </Op>
+      {a.issues.some((i) => i.rule === "plan.vocal_in_instrumental") && (
+        <Op icon={<Music className="size-4 text-warn" />} title={lang() === "zh" ? "改为纯音乐" : "Make instrumental"}
+          hint={lang() === "zh" ? "把歌手声部的旋律移到乐器声部，歌手声部改为休止，避免被哼唱出来。"
+            : "Move the singer's melody to the instrument line and silence the vocal part so nothing gets hummed."}>
+          <Button size="sm" variant="soft" onClick={() => go([{ op: "instrumentalize" }])}>{t("plan.preview")}</Button>
+        </Op>
+      )}
       <Op icon={<Wand2 className="size-4 text-accent" />} title={t("plan.smooth")} hint={t("plan.smoothHint")}>
         <Button size="sm" variant="soft" onClick={() => go([{ op: "smooth_endings" }])}>{t("plan.preview")}</Button>
       </Op>
