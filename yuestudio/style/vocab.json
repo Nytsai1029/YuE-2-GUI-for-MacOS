@@ -1,0 +1,1854 @@
+{
+ "genres": [
+  {
+   "en": "pop",
+   "zh": "流行",
+   "cat": "pop"
+  },
+  {
+   "en": "city pop",
+   "zh": "城市流行",
+   "cat": "pop"
+  },
+  {
+   "en": "Mandopop",
+   "zh": "华语流行",
+   "cat": "pop"
+  },
+  {
+   "en": "C-pop ballad",
+   "zh": "华语抒情",
+   "cat": "pop"
+  },
+  {
+   "en": "piano ballad",
+   "zh": "钢琴抒情",
+   "cat": "pop"
+  },
+  {
+   "en": "power ballad",
+   "zh": "力量抒情",
+   "cat": "pop"
+  },
+  {
+   "en": "indie pop",
+   "zh": "独立流行",
+   "cat": "pop"
+  },
+  {
+   "en": "synthpop",
+   "zh": "合成器流行",
+   "cat": "pop"
+  },
+  {
+   "en": "dream pop",
+   "zh": "梦幻流行",
+   "cat": "pop"
+  },
+  {
+   "en": "electropop",
+   "zh": "电子流行",
+   "cat": "pop"
+  },
+  {
+   "en": "dance pop",
+   "zh": "舞曲流行",
+   "cat": "pop"
+  },
+  {
+   "en": "R&B",
+   "zh": "节奏布鲁斯",
+   "cat": "pop"
+  },
+  {
+   "en": "neo-soul",
+   "zh": "新灵魂乐",
+   "cat": "pop"
+  },
+  {
+   "en": "soul",
+   "zh": "灵魂乐",
+   "cat": "pop"
+  },
+  {
+   "en": "funk",
+   "zh": "放克",
+   "cat": "pop"
+  },
+  {
+   "en": "disco",
+   "zh": "迪斯科",
+   "cat": "pop"
+  },
+  {
+   "en": "hip-hop",
+   "zh": "嘻哈",
+   "cat": "pop"
+  },
+  {
+   "en": "trap",
+   "zh": "陷阱说唱",
+   "cat": "pop"
+  },
+  {
+   "en": "lo-fi hip-hop",
+   "zh": "低保真嘻哈",
+   "cat": "pop"
+  },
+  {
+   "en": "rock",
+   "zh": "摇滚",
+   "cat": "pop"
+  },
+  {
+   "en": "pop rock",
+   "zh": "流行摇滚",
+   "cat": "pop"
+  },
+  {
+   "en": "alternative rock",
+   "zh": "另类摇滚",
+   "cat": "pop"
+  },
+  {
+   "en": "pop punk",
+   "zh": "流行朋克",
+   "cat": "pop"
+  },
+  {
+   "en": "folk",
+   "zh": "民谣",
+   "cat": "pop"
+  },
+  {
+   "en": "acoustic folk",
+   "zh": "原声民谣",
+   "cat": "pop"
+  },
+  {
+   "en": "country",
+   "zh": "乡村",
+   "cat": "pop"
+  },
+  {
+   "en": "jazz",
+   "zh": "爵士",
+   "cat": "pop"
+  },
+  {
+   "en": "bossa nova",
+   "zh": "波萨诺瓦",
+   "cat": "pop"
+  },
+  {
+   "en": "blues",
+   "zh": "布鲁斯",
+   "cat": "pop"
+  },
+  {
+   "en": "gospel",
+   "zh": "福音",
+   "cat": "pop"
+  },
+  {
+   "en": "Chinese traditional fusion",
+   "zh": "中国风融合",
+   "cat": "pop"
+  },
+  {
+   "en": "guofeng",
+   "zh": "国风",
+   "cat": "pop"
+  },
+  {
+   "en": "anime pop",
+   "zh": "动漫流行",
+   "cat": "pop"
+  },
+  {
+   "en": "cinematic pop",
+   "zh": "电影感流行",
+   "cat": "pop"
+  },
+  {
+   "en": "EDM",
+   "zh": "电子舞曲",
+   "cat": "edm",
+   "bpm": 128
+  },
+  {
+   "en": "artcore",
+   "zh": "艺术核",
+   "cat": "edm",
+   "bpm": 175,
+   "half_time": true
+  },
+  {
+   "en": "hardcore",
+   "zh": "硬核",
+   "cat": "edm",
+   "bpm": 175,
+   "half_time": true
+  },
+  {
+   "en": "happy hardcore",
+   "zh": "快乐硬核",
+   "cat": "edm",
+   "bpm": 175,
+   "half_time": true
+  },
+  {
+   "en": "UK hardcore",
+   "zh": "英式硬核",
+   "cat": "edm",
+   "bpm": 175,
+   "half_time": true
+  },
+  {
+   "en": "J-core",
+   "zh": "日式硬核",
+   "cat": "edm",
+   "bpm": 180,
+   "half_time": true
+  },
+  {
+   "en": "frenchcore",
+   "zh": "法式硬核",
+   "cat": "edm",
+   "bpm": 190,
+   "half_time": true
+  },
+  {
+   "en": "speedcore",
+   "zh": "极速核",
+   "cat": "edm",
+   "bpm": 220,
+   "half_time": true
+  },
+  {
+   "en": "drum and bass",
+   "zh": "鼓打贝斯",
+   "cat": "edm",
+   "bpm": 174,
+   "half_time": true
+  },
+  {
+   "en": "liquid drum and bass",
+   "zh": "流体鼓打贝斯",
+   "cat": "edm",
+   "bpm": 174,
+   "half_time": true
+  },
+  {
+   "en": "neurofunk",
+   "zh": "神经放克",
+   "cat": "edm",
+   "bpm": 174,
+   "half_time": true
+  },
+  {
+   "en": "jungle",
+   "zh": "丛林",
+   "cat": "edm",
+   "bpm": 170,
+   "half_time": true
+  },
+  {
+   "en": "breakcore",
+   "zh": "碎拍核",
+   "cat": "edm",
+   "bpm": 180,
+   "half_time": true
+  },
+  {
+   "en": "hardstyle",
+   "zh": "硬派舞曲",
+   "cat": "edm",
+   "bpm": 150,
+   "half_time": true
+  },
+  {
+   "en": "rawstyle",
+   "zh": "原始硬派",
+   "cat": "edm",
+   "bpm": 150,
+   "half_time": true
+  },
+  {
+   "en": "trance",
+   "zh": "迷幻舞曲",
+   "cat": "edm",
+   "bpm": 138,
+   "half_time": false
+  },
+  {
+   "en": "uplifting trance",
+   "zh": "振奋迷幻",
+   "cat": "edm",
+   "bpm": 138,
+   "half_time": false
+  },
+  {
+   "en": "psytrance",
+   "zh": "迷幻电子",
+   "cat": "edm",
+   "bpm": 142,
+   "half_time": false
+  },
+  {
+   "en": "dubstep",
+   "zh": "回响贝斯",
+   "cat": "edm",
+   "bpm": 140,
+   "half_time": true
+  },
+  {
+   "en": "melodic dubstep",
+   "zh": "旋律回响贝斯",
+   "cat": "edm",
+   "bpm": 140,
+   "half_time": true
+  },
+  {
+   "en": "future bass",
+   "zh": "未来贝斯",
+   "cat": "edm",
+   "bpm": 150,
+   "half_time": true
+  },
+  {
+   "en": "kawaii future bass",
+   "zh": "可爱未来贝斯",
+   "cat": "edm",
+   "bpm": 160,
+   "half_time": true
+  },
+  {
+   "en": "color bass",
+   "zh": "色彩贝斯",
+   "cat": "edm",
+   "bpm": 150,
+   "half_time": true
+  },
+  {
+   "en": "big room house",
+   "zh": "大房浩室",
+   "cat": "edm",
+   "bpm": 128,
+   "half_time": false
+  },
+  {
+   "en": "progressive house",
+   "zh": "前进浩室",
+   "cat": "edm",
+   "bpm": 128,
+   "half_time": false
+  },
+  {
+   "en": "electro house",
+   "zh": "电子浩室",
+   "cat": "edm",
+   "bpm": 128,
+   "half_time": false
+  },
+  {
+   "en": "future house",
+   "zh": "未来浩室",
+   "cat": "edm",
+   "bpm": 124,
+   "half_time": false
+  },
+  {
+   "en": "deep house",
+   "zh": "深浩室",
+   "cat": "edm",
+   "bpm": 122,
+   "half_time": false
+  },
+  {
+   "en": "tech house",
+   "zh": "科技浩室",
+   "cat": "edm",
+   "bpm": 126,
+   "half_time": false
+  },
+  {
+   "en": "techno",
+   "zh": "科技舞曲",
+   "cat": "edm",
+   "bpm": 130,
+   "half_time": false
+  },
+  {
+   "en": "melodic techno",
+   "zh": "旋律科技",
+   "cat": "edm",
+   "bpm": 124,
+   "half_time": false
+  },
+  {
+   "en": "UK garage",
+   "zh": "英式车库",
+   "cat": "edm",
+   "bpm": 132,
+   "half_time": false
+  },
+  {
+   "en": "synthwave",
+   "zh": "合成器浪潮",
+   "cat": "edm",
+   "bpm": 100,
+   "half_time": false
+  },
+  {
+   "en": "chiptune",
+   "zh": "芯片音乐",
+   "cat": "edm",
+   "bpm": 150,
+   "half_time": false
+  },
+  {
+   "en": "nightcore",
+   "zh": "夜核",
+   "cat": "edm",
+   "bpm": 170,
+   "half_time": false
+  },
+  {
+   "en": "hyperpop",
+   "zh": "超流行",
+   "cat": "edm",
+   "bpm": 160,
+   "half_time": false
+  },
+  {
+   "en": "phonk",
+   "zh": "芬克",
+   "cat": "edm",
+   "bpm": 140,
+   "half_time": false
+  },
+  {
+   "en": "electro swing",
+   "zh": "电子摇摆",
+   "cat": "edm",
+   "bpm": 124,
+   "half_time": false
+  },
+  {
+   "en": "moombahton",
+   "zh": "慕巴顿",
+   "cat": "edm",
+   "bpm": 108,
+   "half_time": false
+  },
+  {
+   "en": "glitch hop",
+   "zh": "故障嘻哈",
+   "cat": "edm",
+   "bpm": 105,
+   "half_time": false
+  },
+  {
+   "en": "breakbeat",
+   "zh": "碎拍",
+   "cat": "edm",
+   "bpm": 135,
+   "half_time": false
+  }
+ ],
+ "moods": [
+  {
+   "en": "uplifting",
+   "zh": "振奋"
+  },
+  {
+   "en": "hopeful",
+   "zh": "充满希望"
+  },
+  {
+   "en": "joyful",
+   "zh": "欢快"
+  },
+  {
+   "en": "romantic",
+   "zh": "浪漫"
+  },
+  {
+   "en": "tender",
+   "zh": "温柔"
+  },
+  {
+   "en": "nostalgic",
+   "zh": "怀旧"
+  },
+  {
+   "en": "melancholic",
+   "zh": "忧郁"
+  },
+  {
+   "en": "bittersweet",
+   "zh": "苦乐参半"
+  },
+  {
+   "en": "dreamy",
+   "zh": "梦幻"
+  },
+  {
+   "en": "calm",
+   "zh": "平静"
+  },
+  {
+   "en": "warm",
+   "zh": "温暖"
+  },
+  {
+   "en": "energetic",
+   "zh": "活力"
+  },
+  {
+   "en": "confident",
+   "zh": "自信"
+  },
+  {
+   "en": "playful",
+   "zh": "俏皮"
+  },
+  {
+   "en": "dark",
+   "zh": "暗黑"
+  },
+  {
+   "en": "epic",
+   "zh": "史诗感"
+  },
+  {
+   "en": "mysterious",
+   "zh": "神秘"
+  },
+  {
+   "en": "empowering",
+   "zh": "鼓舞人心"
+  }
+ ],
+ "timbres": [
+  {
+   "en": "warm",
+   "zh": "温暖"
+  },
+  {
+   "en": "bright",
+   "zh": "明亮"
+  },
+  {
+   "en": "clear",
+   "zh": "清澈"
+  },
+  {
+   "en": "breathy",
+   "zh": "气声"
+  },
+  {
+   "en": "airy",
+   "zh": "轻盈"
+  },
+  {
+   "en": "husky",
+   "zh": "沙哑"
+  },
+  {
+   "en": "smoky",
+   "zh": "烟嗓"
+  },
+  {
+   "en": "sweet",
+   "zh": "甜美"
+  },
+  {
+   "en": "deep",
+   "zh": "低沉"
+  },
+  {
+   "en": "soulful",
+   "zh": "深情"
+  },
+  {
+   "en": "youthful",
+   "zh": "年轻"
+  },
+  {
+   "en": "mature",
+   "zh": "成熟"
+  },
+  {
+   "en": "expressive",
+   "zh": "富有表现力"
+  }
+ ],
+ "deliveries": [
+  {
+   "id": "controlled",
+   "en": "controlled",
+   "zh": "控制稳定"
+  },
+  {
+   "id": "relaxed",
+   "en": "relaxed",
+   "zh": "松弛"
+  },
+  {
+   "id": "intimate",
+   "en": "intimate",
+   "zh": "亲密耳语"
+  },
+  {
+   "id": "powerful",
+   "en": "powerful but controlled",
+   "zh": "有力但克制"
+  },
+  {
+   "id": "rhythmic",
+   "en": "rhythmic rap",
+   "zh": "节奏说唱"
+  }
+ ],
+ "instruments": [
+  {
+   "en": "acoustic piano",
+   "zh": "原声钢琴"
+  },
+  {
+   "en": "electric piano",
+   "zh": "电钢琴"
+  },
+  {
+   "en": "Rhodes",
+   "zh": "Rhodes 电钢"
+  },
+  {
+   "en": "acoustic guitar",
+   "zh": "木吉他"
+  },
+  {
+   "en": "fingerpicked guitar",
+   "zh": "指弹吉他"
+  },
+  {
+   "en": "electric guitar",
+   "zh": "电吉他"
+  },
+  {
+   "en": "clean electric guitar",
+   "zh": "清音电吉他"
+  },
+  {
+   "en": "bass guitar",
+   "zh": "贝斯"
+  },
+  {
+   "en": "groovy bass",
+   "zh": "律动贝斯"
+  },
+  {
+   "en": "synth bass",
+   "zh": "合成器贝斯"
+  },
+  {
+   "en": "808 bass",
+   "zh": "808 贝斯"
+  },
+  {
+   "en": "drums",
+   "zh": "鼓"
+  },
+  {
+   "en": "light drums",
+   "zh": "轻鼓"
+  },
+  {
+   "en": "punchy drums",
+   "zh": "有力的鼓"
+  },
+  {
+   "en": "drum machine",
+   "zh": "鼓机"
+  },
+  {
+   "en": "strings",
+   "zh": "弦乐"
+  },
+  {
+   "en": "cello",
+   "zh": "大提琴"
+  },
+  {
+   "en": "violin",
+   "zh": "小提琴"
+  },
+  {
+   "en": "synth pads",
+   "zh": "合成器铺底"
+  },
+  {
+   "en": "analog synths",
+   "zh": "模拟合成器"
+  },
+  {
+   "en": "brass",
+   "zh": "铜管"
+  },
+  {
+   "en": "saxophone",
+   "zh": "萨克斯"
+  },
+  {
+   "en": "flute",
+   "zh": "长笛"
+  },
+  {
+   "en": "erhu",
+   "zh": "二胡"
+  },
+  {
+   "en": "guzheng",
+   "zh": "古筝"
+  },
+  {
+   "en": "pipa",
+   "zh": "琵琶"
+  },
+  {
+   "en": "dizi",
+   "zh": "笛子"
+  },
+  {
+   "en": "bells",
+   "zh": "钟琴"
+  },
+  {
+   "en": "choir",
+   "zh": "合唱"
+  },
+  {
+   "en": "supersaw leads",
+   "zh": "超级锯齿波主音",
+   "cat": "edm"
+  },
+  {
+   "en": "hoover synth",
+   "zh": "胡佛合成器",
+   "cat": "edm"
+  },
+  {
+   "en": "reese bass",
+   "zh": "里斯贝斯",
+   "cat": "edm"
+  },
+  {
+   "en": "wobble bass",
+   "zh": "摇摆贝斯",
+   "cat": "edm"
+  },
+  {
+   "en": "distorted kick",
+   "zh": "失真底鼓",
+   "cat": "edm"
+  },
+  {
+   "en": "909 drums",
+   "zh": "909 鼓组",
+   "cat": "edm"
+  },
+  {
+   "en": "amen breakbeats",
+   "zh": "Amen 碎拍",
+   "cat": "edm"
+  },
+  {
+   "en": "fast breakbeats",
+   "zh": "快速碎拍",
+   "cat": "edm"
+  },
+  {
+   "en": "piano stabs",
+   "zh": "钢琴短音",
+   "cat": "edm"
+  },
+  {
+   "en": "arpeggiated synths",
+   "zh": "琶音合成器",
+   "cat": "edm"
+  },
+  {
+   "en": "pluck synths",
+   "zh": "拨弦合成器",
+   "cat": "edm"
+  },
+  {
+   "en": "vocal chops",
+   "zh": "人声切片",
+   "cat": "edm"
+  },
+  {
+   "en": "orchestral strings",
+   "zh": "管弦乐弦乐",
+   "cat": "edm"
+  },
+  {
+   "en": "orchestral hits",
+   "zh": "管弦乐重音",
+   "cat": "edm"
+  },
+  {
+   "en": "sidechained pads",
+   "zh": "侧链铺底",
+   "cat": "edm"
+  },
+  {
+   "en": "chiptune leads",
+   "zh": "芯片主音",
+   "cat": "edm"
+  },
+  {
+   "en": "FM bells",
+   "zh": "FM 钟音",
+   "cat": "edm"
+  },
+  {
+   "en": "sub bass",
+   "zh": "超低音贝斯",
+   "cat": "edm"
+  }
+ ],
+ "production": [
+  {
+   "en": "polished studio mix",
+   "zh": "精致录音室混音"
+  },
+  {
+   "en": "modern production",
+   "zh": "现代制作"
+  },
+  {
+   "en": "80s production",
+   "zh": "80 年代制作"
+  },
+  {
+   "en": "90s production",
+   "zh": "90 年代制作"
+  },
+  {
+   "en": "lo-fi texture",
+   "zh": "低保真质感"
+  },
+  {
+   "en": "live band feel",
+   "zh": "现场乐队感"
+  },
+  {
+   "en": "minimal arrangement",
+   "zh": "极简编曲"
+  },
+  {
+   "en": "wide stereo",
+   "zh": "宽广立体声"
+  },
+  {
+   "en": "warm analog mix",
+   "zh": "温暖模拟混音"
+  },
+  {
+   "en": "cinematic build",
+   "zh": "电影感递进"
+  },
+  {
+   "en": "festival mix",
+   "zh": "音乐节混音",
+   "cat": "edm"
+  },
+  {
+   "en": "heavy sidechain",
+   "zh": "强侧链",
+   "cat": "edm"
+  },
+  {
+   "en": "big build-ups and drops",
+   "zh": "大铺垫与大 drop",
+   "cat": "edm"
+  },
+  {
+   "en": "euphoric energy",
+   "zh": "狂喜能量",
+   "cat": "edm"
+  },
+  {
+   "en": "crisp high-energy mix",
+   "zh": "清晰高能混音",
+   "cat": "edm"
+  },
+  {
+   "en": "half-time vocals over fast drums",
+   "zh": "快鼓配半拍人声",
+   "cat": "edm"
+  }
+ ],
+ "phrasing": [
+  {
+   "en": "memorable melody",
+   "zh": "旋律好记"
+  },
+  {
+   "en": "smooth phrasing",
+   "zh": "乐句流畅"
+  },
+  {
+   "en": "gentle phrase endings",
+   "zh": "句尾轻柔收住"
+  },
+  {
+   "en": "clear diction",
+   "zh": "咬字清晰"
+  },
+  {
+   "en": "unhurried phrasing",
+   "zh": "从容不赶"
+  },
+  {
+   "en": "catchy hook",
+   "zh": "抓耳的副歌"
+  },
+  {
+   "en": "dynamic build to the chorus",
+   "zh": "向副歌递进"
+  },
+  {
+   "en": "wide vocal range in the chorus",
+   "zh": "副歌音域开阔"
+  }
+ ],
+ "artists": [
+  "Taylor Swift",
+  "Adele",
+  "Ed Sheeran",
+  "Billie Eilish",
+  "Ariana Grande",
+  "Beyonce",
+  "Beyoncé",
+  "Drake",
+  "The Weeknd",
+  "Bruno Mars",
+  "Rihanna",
+  "Lady Gaga",
+  "Justin Bieber",
+  "Dua Lipa",
+  "Olivia Rodrigo",
+  "Harry Styles",
+  "Coldplay",
+  "Imagine Dragons",
+  "Maroon 5",
+  "Linkin Park",
+  "Queen",
+  "Michael Jackson",
+  "Madonna",
+  "Whitney Houston",
+  "Celine Dion",
+  "Mariah Carey",
+  "Frank Ocean",
+  "Kendrick Lamar",
+  "Eminem",
+  "Kanye",
+  "Travis Scott",
+  "Post Malone",
+  "SZA",
+  "Doja Cat",
+  "Lana Del Rey",
+  "BTS",
+  "BLACKPINK",
+  "IU",
+  "Jay Chou",
+  "周杰伦",
+  "JJ Lin",
+  "林俊杰",
+  "G.E.M.",
+  "邓紫棋",
+  "Faye Wong",
+  "王菲",
+  "Eason Chan",
+  "陈奕迅",
+  "Jacky Cheung",
+  "张学友",
+  "Teresa Teng",
+  "邓丽君",
+  "Mayday",
+  "五月天",
+  "Jolin Tsai",
+  "蔡依林",
+  "David Tao",
+  "陶喆",
+  "Leehom Wang",
+  "王力宏",
+  "A-Lin",
+  "Hebe",
+  "田馥甄",
+  "Stefanie Sun",
+  "孙燕姿",
+  "毛不易",
+  "李荣浩",
+  "薛之谦",
+  "周深",
+  "华晨宇",
+  "Tanya Chua",
+  "蔡健雅",
+  "Joker Xue",
+  "Mao Buyi",
+  "Zhou Shen",
+  "Hua Chenyu",
+  "Lisa Ono",
+  "Joe Hisaishi",
+  "久石让",
+  "Hans Zimmer",
+  "Radiohead",
+  "Oasis",
+  "The Beatles"
+ ],
+ "presets": [
+  {
+   "id": "instrumental",
+   "name": {
+    "en": "Instrumental (no lyrics)",
+    "zh": "纯音乐（无歌词）"
+   },
+   "instrumental": true,
+   "fields": {
+    "gender": "none",
+    "genres": [
+     "cinematic pop"
+    ],
+    "moods": [
+     "calm",
+     "hopeful"
+    ],
+    "timbre": [],
+    "delivery": "controlled",
+    "instruments": [
+     "acoustic piano",
+     "strings",
+     "light drums"
+    ],
+    "production": [
+     "polished studio mix"
+    ],
+    "harmony": "rich",
+    "phrasing": [
+     "memorable melody",
+     "dynamic build to the chorus"
+    ],
+    "bpm": 84
+   }
+  },
+  {
+   "id": "city-pop-night",
+   "name": {
+    "en": "City-pop night drive",
+    "zh": "城市流行夜驰"
+   },
+   "fields": {
+    "genres": [
+     "city pop"
+    ],
+    "moods": [
+     "nostalgic",
+     "energetic"
+    ],
+    "gender": "female",
+    "timbre": [
+     "bright"
+    ],
+    "delivery": "controlled",
+    "instruments": [
+     "groovy bass",
+     "electric piano",
+     "clean electric guitar",
+     "drums"
+    ],
+    "production": [
+     "80s production"
+    ],
+    "harmony": "color",
+    "phrasing": [
+     "memorable melody",
+     "smooth phrasing"
+    ],
+    "bpm": 112
+   }
+  },
+  {
+   "id": "piano-ballad",
+   "name": {
+    "en": "Piano ballad",
+    "zh": "钢琴抒情"
+   },
+   "fields": {
+    "genres": [
+     "piano ballad"
+    ],
+    "moods": [
+     "tender",
+     "bittersweet"
+    ],
+    "gender": "female",
+    "timbre": [
+     "warm",
+     "breathy"
+    ],
+    "delivery": "intimate",
+    "instruments": [
+     "acoustic piano",
+     "strings"
+    ],
+    "production": [
+     "polished studio mix"
+    ],
+    "harmony": "color",
+    "phrasing": [
+     "unhurried phrasing",
+     "gentle phrase endings",
+     "dynamic build to the chorus"
+    ],
+    "bpm": 72
+   }
+  },
+  {
+   "id": "mandopop-anthem",
+   "name": {
+    "en": "Mandopop anthem",
+    "zh": "华语流行主打"
+   },
+   "fields": {
+    "genres": [
+     "Mandopop",
+     "pop rock"
+    ],
+    "moods": [
+     "uplifting",
+     "hopeful"
+    ],
+    "gender": "male",
+    "timbre": [
+     "clear"
+    ],
+    "delivery": "powerful",
+    "instruments": [
+     "acoustic piano",
+     "electric guitar",
+     "bass guitar",
+     "punchy drums",
+     "strings"
+    ],
+    "production": [
+     "modern production"
+    ],
+    "harmony": "rich",
+    "phrasing": [
+     "catchy hook",
+     "dynamic build to the chorus",
+     "gentle phrase endings"
+    ],
+    "bpm": 88
+   }
+  },
+  {
+   "id": "neo-soul",
+   "name": {
+    "en": "Neo-soul groove",
+    "zh": "新灵魂律动"
+   },
+   "fields": {
+    "genres": [
+     "neo-soul",
+     "R&B"
+    ],
+    "moods": [
+     "warm",
+     "romantic"
+    ],
+    "gender": "female",
+    "timbre": [
+     "smoky"
+    ],
+    "delivery": "relaxed",
+    "instruments": [
+     "Rhodes",
+     "groovy bass",
+     "light drums"
+    ],
+    "production": [
+     "warm analog mix"
+    ],
+    "harmony": "jazz",
+    "phrasing": [
+     "smooth phrasing"
+    ],
+    "bpm": 84
+   }
+  },
+  {
+   "id": "folk-campfire",
+   "name": {
+    "en": "Acoustic folk",
+    "zh": "原声民谣"
+   },
+   "fields": {
+    "genres": [
+     "acoustic folk"
+    ],
+    "moods": [
+     "warm",
+     "nostalgic"
+    ],
+    "gender": "male",
+    "timbre": [
+     "warm",
+     "husky"
+    ],
+    "delivery": "relaxed",
+    "instruments": [
+     "fingerpicked guitar",
+     "cello"
+    ],
+    "production": [
+     "minimal arrangement"
+    ],
+    "harmony": "color",
+    "phrasing": [
+     "clear diction",
+     "unhurried phrasing"
+    ],
+    "bpm": 90
+   }
+  },
+  {
+   "id": "guofeng",
+   "name": {
+    "en": "Guofeng (Chinese style)",
+    "zh": "国风"
+   },
+   "fields": {
+    "genres": [
+     "guofeng",
+     "cinematic pop"
+    ],
+    "moods": [
+     "epic",
+     "nostalgic"
+    ],
+    "gender": "female",
+    "timbre": [
+     "clear",
+     "airy"
+    ],
+    "delivery": "controlled",
+    "instruments": [
+     "guzheng",
+     "dizi",
+     "strings",
+     "drums"
+    ],
+    "production": [
+     "cinematic build"
+    ],
+    "harmony": "color",
+    "phrasing": [
+     "memorable melody",
+     "gentle phrase endings"
+    ],
+    "bpm": 80
+   }
+  },
+  {
+   "id": "synthpop",
+   "name": {
+    "en": "Synthpop",
+    "zh": "合成器流行"
+   },
+   "fields": {
+    "genres": [
+     "synthpop"
+    ],
+    "moods": [
+     "dreamy",
+     "energetic"
+    ],
+    "gender": "female",
+    "timbre": [
+     "airy"
+    ],
+    "delivery": "controlled",
+    "instruments": [
+     "analog synths",
+     "synth bass",
+     "drum machine"
+    ],
+    "production": [
+     "80s production",
+     "wide stereo"
+    ],
+    "harmony": "color",
+    "phrasing": [
+     "catchy hook",
+     "smooth phrasing"
+    ],
+    "bpm": 118
+   }
+  },
+  {
+   "id": "hiphop",
+   "name": {
+    "en": "Melodic hip-hop",
+    "zh": "旋律说唱"
+   },
+   "fields": {
+    "genres": [
+     "hip-hop"
+    ],
+    "moods": [
+     "confident"
+    ],
+    "gender": "male",
+    "timbre": [
+     "deep"
+    ],
+    "delivery": "rhythmic",
+    "instruments": [
+     "808 bass",
+     "drum machine",
+     "synth pads"
+    ],
+    "production": [
+     "modern production"
+    ],
+    "harmony": "color",
+    "phrasing": [
+     "catchy hook"
+    ],
+    "bpm": 92
+   }
+  },
+  {
+   "id": "artcore",
+   "name": {
+    "en": "Artcore",
+    "zh": "艺术核"
+   },
+   "fields": {
+    "genres": [
+     "artcore"
+    ],
+    "moods": [
+     "epic",
+     "uplifting"
+    ],
+    "gender": "female",
+    "timbre": [
+     "clear",
+     "bright"
+    ],
+    "delivery": "controlled",
+    "instruments": [
+     "acoustic piano",
+     "orchestral strings",
+     "fast breakbeats",
+     "supersaw leads"
+    ],
+    "production": [
+     "crisp high-energy mix",
+     "half-time vocals over fast drums"
+    ],
+    "harmony": "rich",
+    "phrasing": [
+     "memorable melody",
+     "gentle phrase endings"
+    ],
+    "bpm": 175
+   }
+  },
+  {
+   "id": "happy-hardcore",
+   "name": {
+    "en": "Happy hardcore",
+    "zh": "快乐硬核"
+   },
+   "fields": {
+    "genres": [
+     "happy hardcore"
+    ],
+    "moods": [
+     "joyful",
+     "energetic"
+    ],
+    "gender": "female",
+    "timbre": [
+     "bright",
+     "sweet"
+    ],
+    "delivery": "controlled",
+    "instruments": [
+     "supersaw leads",
+     "piano stabs",
+     "distorted kick"
+    ],
+    "production": [
+     "euphoric energy",
+     "half-time vocals over fast drums"
+    ],
+    "harmony": "color",
+    "phrasing": [
+     "catchy hook",
+     "gentle phrase endings"
+    ],
+    "bpm": 175
+   }
+  },
+  {
+   "id": "j-core",
+   "name": {
+    "en": "J-core",
+    "zh": "日式硬核"
+   },
+   "fields": {
+    "genres": [
+     "J-core"
+    ],
+    "moods": [
+     "playful",
+     "energetic"
+    ],
+    "gender": "female",
+    "timbre": [
+     "sweet",
+     "bright"
+    ],
+    "delivery": "controlled",
+    "instruments": [
+     "hoover synth",
+     "supersaw leads",
+     "distorted kick",
+     "chiptune leads"
+    ],
+    "production": [
+     "crisp high-energy mix",
+     "half-time vocals over fast drums"
+    ],
+    "harmony": "color",
+    "phrasing": [
+     "catchy hook"
+    ],
+    "bpm": 180
+   }
+  },
+  {
+   "id": "dnb",
+   "name": {
+    "en": "Liquid drum & bass",
+    "zh": "流体鼓打贝斯"
+   },
+   "fields": {
+    "genres": [
+     "liquid drum and bass"
+    ],
+    "moods": [
+     "dreamy",
+     "hopeful"
+    ],
+    "gender": "female",
+    "timbre": [
+     "airy",
+     "warm"
+    ],
+    "delivery": "relaxed",
+    "instruments": [
+     "fast breakbeats",
+     "reese bass",
+     "electric piano",
+     "sidechained pads"
+    ],
+    "production": [
+     "half-time vocals over fast drums",
+     "wide stereo"
+    ],
+    "harmony": "color",
+    "phrasing": [
+     "smooth phrasing"
+    ],
+    "bpm": 174
+   }
+  },
+  {
+   "id": "trance",
+   "name": {
+    "en": "Uplifting trance",
+    "zh": "振奋迷幻"
+   },
+   "fields": {
+    "genres": [
+     "uplifting trance"
+    ],
+    "moods": [
+     "uplifting",
+     "epic"
+    ],
+    "gender": "female",
+    "timbre": [
+     "airy",
+     "clear"
+    ],
+    "delivery": "controlled",
+    "instruments": [
+     "supersaw leads",
+     "arpeggiated synths",
+     "sidechained pads",
+     "909 drums"
+    ],
+    "production": [
+     "big build-ups and drops",
+     "festival mix"
+    ],
+    "harmony": "color",
+    "phrasing": [
+     "memorable melody",
+     "gentle phrase endings"
+    ],
+    "bpm": 138
+   }
+  },
+  {
+   "id": "future-bass",
+   "name": {
+    "en": "Future bass",
+    "zh": "未来贝斯"
+   },
+   "fields": {
+    "genres": [
+     "future bass"
+    ],
+    "moods": [
+     "dreamy",
+     "joyful"
+    ],
+    "gender": "female",
+    "timbre": [
+     "sweet",
+     "airy"
+    ],
+    "delivery": "controlled",
+    "instruments": [
+     "supersaw leads",
+     "vocal chops",
+     "sub bass",
+     "pluck synths"
+    ],
+    "production": [
+     "heavy sidechain",
+     "big build-ups and drops"
+    ],
+    "harmony": "rich",
+    "phrasing": [
+     "catchy hook"
+    ],
+    "bpm": 150
+   }
+  },
+  {
+   "id": "hardstyle",
+   "name": {
+    "en": "Euphoric hardstyle",
+    "zh": "狂喜硬派"
+   },
+   "fields": {
+    "genres": [
+     "hardstyle"
+    ],
+    "moods": [
+     "epic",
+     "empowering"
+    ],
+    "gender": "male",
+    "timbre": [
+     "clear"
+    ],
+    "delivery": "powerful",
+    "instruments": [
+     "distorted kick",
+     "supersaw leads",
+     "orchestral strings"
+    ],
+    "production": [
+     "festival mix",
+     "big build-ups and drops"
+    ],
+    "harmony": "color",
+    "phrasing": [
+     "catchy hook",
+     "gentle phrase endings"
+    ],
+    "bpm": 150
+   }
+  },
+  {
+   "id": "melodic-dubstep",
+   "name": {
+    "en": "Melodic dubstep",
+    "zh": "旋律回响贝斯"
+   },
+   "fields": {
+    "genres": [
+     "melodic dubstep"
+    ],
+    "moods": [
+     "epic",
+     "bittersweet"
+    ],
+    "gender": "female",
+    "timbre": [
+     "breathy",
+     "clear"
+    ],
+    "delivery": "controlled",
+    "instruments": [
+     "acoustic piano",
+     "wobble bass",
+     "supersaw leads",
+     "sidechained pads"
+    ],
+    "production": [
+     "big build-ups and drops"
+    ],
+    "harmony": "rich",
+    "phrasing": [
+     "dynamic build to the chorus",
+     "gentle phrase endings"
+    ],
+    "bpm": 140
+   }
+  }
+ ],
+ "templates": [
+  {
+   "id": "instrumental",
+   "name": {
+    "en": "Instrumental (no lyrics)",
+    "zh": "纯音乐（无歌词）"
+   },
+   "sections": [
+    "Intro",
+    "Interlude",
+    "Interlude",
+    "Interlude",
+    "Outro"
+   ],
+   "instrumental": true,
+   "preset": "instrumental"
+  },
+  {
+   "id": "pop",
+   "name": {
+    "en": "Pop",
+    "zh": "流行"
+   },
+   "sections": [
+    "Intro",
+    "Verse",
+    "Pre-Chorus",
+    "Chorus",
+    "Verse",
+    "Pre-Chorus",
+    "Chorus",
+    "Bridge",
+    "Chorus",
+    "Outro"
+   ]
+  },
+  {
+   "id": "ballad",
+   "name": {
+    "en": "Ballad",
+    "zh": "抒情"
+   },
+   "sections": [
+    "Intro",
+    "Verse",
+    "Verse",
+    "Chorus",
+    "Interlude",
+    "Verse",
+    "Chorus",
+    "Bridge",
+    "Chorus",
+    "Outro"
+   ]
+  },
+  {
+   "id": "short",
+   "name": {
+    "en": "Short (2 min)",
+    "zh": "短版（2 分钟）"
+   },
+   "sections": [
+    "Intro",
+    "Verse",
+    "Chorus",
+    "Verse",
+    "Chorus",
+    "Outro"
+   ]
+  },
+  {
+   "id": "cpop",
+   "name": {
+    "en": "C-pop",
+    "zh": "华语流行"
+   },
+   "sections": [
+    "Intro",
+    "Verse",
+    "Pre-Chorus",
+    "Chorus",
+    "Interlude",
+    "Pre-Chorus",
+    "Chorus",
+    "Bridge",
+    "Chorus",
+    "Outro"
+   ]
+  },
+  {
+   "id": "rock",
+   "name": {
+    "en": "Rock",
+    "zh": "摇滚"
+   },
+   "sections": [
+    "Intro",
+    "Verse",
+    "Chorus",
+    "Verse",
+    "Chorus",
+    "Interlude",
+    "Bridge",
+    "Chorus",
+    "Chorus",
+    "Outro"
+   ]
+  },
+  {
+   "id": "hiphop",
+   "name": {
+    "en": "Hip-hop",
+    "zh": "说唱"
+   },
+   "sections": [
+    "Intro",
+    "Chorus",
+    "Verse",
+    "Chorus",
+    "Verse",
+    "Chorus",
+    "Bridge",
+    "Chorus",
+    "Outro"
+   ]
+  },
+  {
+   "id": "edm",
+   "name": {
+    "en": "EDM (build + drop)",
+    "zh": "电子（铺垫 + drop）"
+   },
+   "sections": [
+    "Intro",
+    "Verse",
+    "Pre-Chorus",
+    "Chorus",
+    "Interlude",
+    "Verse",
+    "Pre-Chorus",
+    "Chorus",
+    "Interlude",
+    "Outro"
+   ],
+   "notes": {
+    "Pre-Chorus": {
+     "en": "build-up",
+     "zh": "铺垫"
+    },
+    "Interlude": {
+     "en": "drop (instrumental)",
+     "zh": "drop（纯音乐）"
+    }
+   }
+  },
+  {
+   "id": "artcore",
+   "name": {
+    "en": "Artcore / hardcore",
+    "zh": "艺术核 / 硬核"
+   },
+   "sections": [
+    "Intro",
+    "Verse",
+    "Pre-Chorus",
+    "Chorus",
+    "Interlude",
+    "Verse",
+    "Pre-Chorus",
+    "Chorus",
+    "Bridge",
+    "Interlude",
+    "Chorus",
+    "Outro"
+   ],
+   "notes": {
+    "Pre-Chorus": {
+     "en": "build-up",
+     "zh": "铺垫"
+    },
+    "Interlude": {
+     "en": "drop / piano break (instrumental)",
+     "zh": "drop / 钢琴段（纯音乐）"
+    },
+    "Bridge": {
+     "en": "breakdown",
+     "zh": "breakdown"
+    }
+   }
+  }
+ ],
+ "keys": [
+  "C major",
+  "G major",
+  "D major",
+  "A major",
+  "E major",
+  "F major",
+  "Bb major",
+  "Eb major",
+  "A minor",
+  "E minor",
+  "D minor",
+  "B minor",
+  "C minor",
+  "G minor"
+ ],
+ "genre_categories": [
+  {
+   "id": "pop",
+   "en": "Pop & band",
+   "zh": "流行与乐队"
+  },
+  {
+   "id": "edm",
+   "en": "Electronic / EDM",
+   "zh": "电子 / EDM"
+  }
+ ]
+}

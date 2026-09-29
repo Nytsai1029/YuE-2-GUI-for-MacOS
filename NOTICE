@@ -1,0 +1,10 @@
+YuE Studio
+
+This repository includes third-party code:
+
+- yuestudio/abc/_vendor/abc_tools.py and fake_lyra/lyra/music_tools/abc_tools.py
+  are copied from mlx-Yue (https://github.com/vanch007/mlx-Yue), licensed under the
+  Apache License 2.0. A copy of that license is in yuestudio/abc/_vendor/LICENSE-mlx-Yue.
+
+YuE Studio does not include or download YuE2 model weights. YuE2 weights (M-A-P / HKUST)
+are licensed CC BY-NC 4.0 with an additional creator permission; see the YuE project.
