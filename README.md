@@ -1,3 +1,7 @@
+# IMPORTANT
+
+This is a very bad project, to be honest, and is no longer maintained.
+
 # YuE Studio
 
 A quality harness and studio UI for **YuE2** song generation on Apple Silicon (via
